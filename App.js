@@ -1,20 +1,36 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Image,
+  Text,
+  SafeAreaView,
+  Button,
+  TouchableWithoutFeedback,
+} from "react-native";
+import StyleButton from "./app/components/Button";
+import Card from "./app/components/Card";
+import ListingDetails from "./app/screens/ListingDetails";
+import ListingScreen from "./app/screens/ListingScreen";
+import MessagesScreen from "./app/screens/MessagesScreen";
+import MyAccount from "./app/screens/MyAccount";
+import ViewImageScreen from "./app/screens/ViewImageScreen";
+import WelcomeScreen from "./app/screens/WelcomeScreen";
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+  // return <WelcomeScreen />;
+  // return <ViewImageScreen />;
+  // return <StyleButton />;
+  // return <ListingDetails title="Free Jacket" subtitle="$100" />;
+  // return <MessagesScreen />;
+  // return <MyAccount />;
+  return <ListingScreen />;
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+  // container: {
+  //   backgroundColor: "grey",
+  //   borderRadius: 10,
+  //   padding: 20,
+  //   paddingTop: 100,
+  // },
 });
