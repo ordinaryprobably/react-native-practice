@@ -12,11 +12,11 @@ export const WideBtn = styled.TouchableOpacity`
         return colors.primary;
     }
   }};
-  width: 90%;
+  width: 100%;
   padding: 15px;
-  display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 50px;
+  margin-top: 20px;
   margin-bottom: 15px;
 `;

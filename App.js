@@ -17,8 +17,18 @@ import MyAccount from "./app/screens/MyAccount";
 import ViewImageScreen from "./app/screens/ViewImageScreen";
 import WelcomeScreen from "./app/screens/WelcomeScreen";
 import AppPicker from "./app/components/AppPicker";
+import Screen from "./app/components/Screen";
+import { useState } from "react";
+import LoginScreen from "./app/screens/LoginScreen";
+
+const categories = [
+  { label: "food", value: 1 },
+  { label: "bike", value: 2 },
+  { label: "korea", value: 3 },
+];
 
 export default function App() {
+  const [category, setCategory] = useState(null);
   // return <WelcomeScreen />;
   // return <ViewImageScreen />;
   // return <StyleButton />;
@@ -26,11 +36,17 @@ export default function App() {
   // return <MessagesScreen />;
   // return <MyAccount />;
   // return <ListingScreen />;
-  return (
-    <SafeAreaView>
-      <AppPicker icon="apps" placeholder="Categories" />
-    </SafeAreaView>
-  );
+  // return (
+  //   <Screen>
+  //     <AppPicker
+  //       icon="apps"
+  //       placeholder="Categories"
+  //       items={categories}
+  //       selectedItem={category}
+  //       onItemSelect={(item) => setCategory(item)}
+  //     />
+  //   </Screen>
+  return <LoginScreen />;
 }
 const styles = StyleSheet.create({
   // container: {

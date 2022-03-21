@@ -1,19 +1,56 @@
 import styled from "styled-components/native";
-import { Platform } from "react-native";
+import { TouchableOpacity, Modal, Button, FlatList } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import colors from "../config/colors";
-import defaultStyles from "../config/styles";
 import { BasicText } from "../styled_components/elements/Text";
+import { useState } from "react";
+import PickerItem from "./PickerItem";
+import Screen from "./Screen";
 
-export default function AppPicker({ icon, placeholder, ...otherProps }) {
+export default function AppPicker({
+  icon,
+  items,
+  selectedItem,
+  placeholder,
+  onItemSelect,
+}) {
+  const [isVisible, setIsVisible] = useState(false);
+
   return (
-    <TextView>
-      <CategoryIcon name={icon} size={24} color={colors.medium} />
-      <PickerText>{placeholder}</PickerText>
-      <Feather name="chevron-down" size={24} color={colors.medium} />
-    </TextView>
+    <>
+      <TouchableOpacity
+        underlayColor={colors.light}
+        onPress={() => setIsVisible(true)}
+      >
+        <TextView>
+          <CategoryIcon name={icon} size={24} color={colors.medium} />
+          <PickerText>
+            {selectedItem ? selectedItem.label : placeholder}
+          </PickerText>
+          <Feather name="chevron-down" size={24} color={colors.medium} />
+        </TextView>
+      </TouchableOpacity>
+      <Modal visible={isVisible} animationType="slide">
+        <Screen>
+          <Button title="close" onPress={() => setIsVisible(false)} />
+          <FlatList
+            data={items}
+            keyExtractor={(item) => item.value.toString()}
+            renderItem={({ item }) => (
+              <PickerItem
+                label={item.label}
+                onPress={() => {
+                  onItemSelect(item);
+                  setIsVisible(false);
+                }}
+              />
+            )}
+          />
+        </Screen>
+      </Modal>
+    </>
   );
 }
 
