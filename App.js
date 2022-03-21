@@ -20,6 +20,8 @@ import AppPicker from "./app/components/AppPicker";
 import Screen from "./app/components/Screen";
 import { useState } from "react";
 import LoginScreen from "./app/screens/LoginScreen";
+import RegisterScreen from "./app/screens/RegisterScreen";
+import ListingEditScreen from "./app/screens/ListingEditScreen";
 
 const categories = [
   { label: "food", value: 1 },
@@ -46,7 +48,9 @@ export default function App() {
   //       onItemSelect={(item) => setCategory(item)}
   //     />
   //   </Screen>
-  return <LoginScreen />;
+  // return <LoginScreen />;
+  // return <RegisterScreen />;
+  return <ListingEditScreen />;
 }
 const styles = StyleSheet.create({
   // container: {
