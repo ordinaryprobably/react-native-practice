@@ -1,4 +1,5 @@
 import { FlatList, Platform, StatusBar } from "react-native";
+import styled from "styled-components/native";
 
 import Screen from "../components/Screen";
 import ListItem from "../components/ListItem";
@@ -31,33 +32,33 @@ export default function MessagesScreen() {
 
   return (
     <Screen>
-      <FlatList
-        data={messages}
-        keyExtractor={(message) => message.id.toString()}
-        renderItem={({ item }) => (
-          <ListItem
-            title={item.title}
-            description={item.description}
-            imageUrl={item.image}
-            onPress={() => console.log(item.title)}
-            renderRightAction={() => (
-              <ListItemDeleteAction onPress={() => handleDelete(item)} />
-            )}
-          />
-        )}
-        ItemSeparatorComponent={ListItemSeparator}
-        refreshing={refreshing}
-        onRefresh={() =>
-          setMessages([
-            {
-              id: 2,
-              title: "Title 2",
-              description: "Desc 2",
-              image: require("../assets/mosh.jpg"),
-            },
-          ])
-        }
-      />
+      <FullScreen>
+        <FlatList
+          data={messages}
+          keyExtractor={(message) => message.id.toString()}
+          renderItem={({ item }) => (
+            <ListItem
+              title={item.title}
+              description={item.description}
+              imageUrl={item.image}
+              onPress={() => console.log(item.title)}
+              renderRightAction={() => (
+                <ListItemDeleteAction onPress={() => handleDelete(item)} />
+              )}
+            />
+          )}
+          ItemSeparatorComponent={ListItemSeparator}
+          refreshing={refreshing}
+          onRefresh={() => {
+            setMessages(initailMessages);
+            setRefreshing(false);
+          }}
+        />
+      </FullScreen>
     </Screen>
   );
 }
+
+const FullScreen = styled.View`
+  flex: 1;
+`;

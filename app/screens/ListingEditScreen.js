@@ -41,11 +41,13 @@ function ListingEditScreen() {
             keyboardType="default"
             placeholder="Price ($)"
             name="price"
+            width={130}
           />
           <AppFormPicker
             items={categories}
             placeholder="Category"
             name="category"
+            width={170}
           />
           <AppFormField
             autoCapitalize="none"

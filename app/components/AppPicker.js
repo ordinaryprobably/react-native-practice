@@ -15,6 +15,7 @@ export default function AppPicker({
   selectedItem,
   placeholder,
   onItemSelect,
+  width,
 }) {
   const [isVisible, setIsVisible] = useState(false);
 
@@ -24,7 +25,7 @@ export default function AppPicker({
         underlayColor={colors.light}
         onPress={() => setIsVisible(true)}
       >
-        <TextView>
+        <TextView width={width}>
           <CategoryIcon name={icon} size={24} color={colors.medium} />
           <PickerText>
             {selectedItem ? selectedItem.label : placeholder}
@@ -56,10 +57,12 @@ export default function AppPicker({
 
 const TextView = styled.View`
   flex-direction: row;
-  padding: 15px;
+  align-items: center;
+  padding: 10px;
   background-color: ${colors.light};
-  border-radius: 25px;
+  border-radius: 8px;
   margin: 10px 0;
+  width: ${(props) => (props.width ? `${props.width}px` : "100%")};
 `;
 
 const PickerText = styled(BasicText)`

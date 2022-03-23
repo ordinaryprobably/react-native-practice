@@ -3,6 +3,7 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 import styled from "styled-components/native";
 import colors from "../config/colors";
+import { Feather } from "@expo/vector-icons";
 
 export default function ListItem({
   title,
@@ -11,6 +12,8 @@ export default function ListItem({
   IconComponent,
   onPress,
   renderRightAction,
+  showChevrons,
+  numberOfLines,
 }) {
   return (
     <GestureHandlerRootView>
@@ -21,8 +24,15 @@ export default function ListItem({
             {imageUrl && <ProfileImage source={imageUrl} />}
             <ProfileInnerView>
               <ProfileName>{title}</ProfileName>
-              {description && <CountListing>{description}</CountListing>}
+              {description && (
+                <CountListing numberOfLines={numberOfLines}>
+                  {description}
+                </CountListing>
+              )}
             </ProfileInnerView>
+            {showChevrons && (
+              <Feather name="chevron-right" size={24} color="black" />
+            )}
           </ProfileView>
         </TouchableHighlight>
       </Swipeable>
@@ -32,6 +42,7 @@ export default function ListItem({
 
 const ProfileView = styled.View`
   flex-direction: row;
+  align-items: center;
   padding: 15px 20px;
   background-color: ${colors.white};
 `;
@@ -43,6 +54,7 @@ const ProfileImage = styled.Image`
 `;
 
 const ProfileInnerView = styled.View`
+  flex: 1;
   justify-content: center;
   margin-left: 10px;
 `;
