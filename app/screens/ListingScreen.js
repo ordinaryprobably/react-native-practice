@@ -21,7 +21,7 @@ const initailItems = [
   },
 ];
 
-export default function ListingScreen() {
+export default function ListingScreen({ navigation }) {
   const [items, setItems] = useState(initailItems);
 
   return (
@@ -35,6 +35,13 @@ export default function ListingScreen() {
               title={item.title}
               subtitle={item.price}
               imageUrl={item.image}
+              onPress={() =>
+                navigation.navigate("Listing Detail Screen", {
+                  title: item.title,
+                  subtitle: item.subtitle,
+                  imageUrl: item.image,
+                })
+              }
             />
           )}
         />

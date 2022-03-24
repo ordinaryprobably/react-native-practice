@@ -1,7 +1,10 @@
 import { ImageBackground, StyleSheet, View, Image, Text } from "react-native";
 import StyleButton from "../components/Button";
+import { useNavigation } from "@react-navigation/native";
 
 export default function WelcomeScreen() {
+  const AuthNavigator = useNavigation();
+
   return (
     <ImageBackground
       style={style.background}
@@ -15,9 +18,13 @@ export default function WelcomeScreen() {
       <StyleButton
         color="primary"
         text="log in"
-        onPress={() => console.log("login tabbed")}
+        onPress={() => AuthNavigator.navigate("Login Screen")}
       />
-      <StyleButton color="secondary" text="register" />
+      <StyleButton
+        color="secondary"
+        text="register"
+        onPress={() => AuthNavigator.navigate("Register Screen")}
+      />
     </ImageBackground>
   );
 }

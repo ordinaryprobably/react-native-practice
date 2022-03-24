@@ -4,13 +4,15 @@ import { BasicText } from "../styled_components/elements/Text";
 import styled from "styled-components/native";
 import ListItem from "../components/ListItem";
 
-export default function ListingDetails({ title, subtitle }) {
+export default function ListingDetails({ route }) {
+  const details = route.params;
+
   return (
     <View>
-      <ItemImage source={require("../assets/jacket.jpg")} />
+      <ItemImage source={details.imageUrl} />
       <DetailContainer>
-        <Title>{title}</Title>
-        <Subtitle>{subtitle}</Subtitle>
+        <Title>{details.title}</Title>
+        <Subtitle>{details.subtitle}</Subtitle>
       </DetailContainer>
       <ListItem
         title="Most"

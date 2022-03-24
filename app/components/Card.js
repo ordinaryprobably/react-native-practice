@@ -1,18 +1,27 @@
 import styled from "styled-components/native";
+import { TouchableWithoutFeedback, View, StyleSheet } from "react-native";
 import colors from "../config/colors";
 import { BasicText } from "../styled_components/elements/Text";
 
-export default function Card({ title, subtitle, imageUrl }) {
+export default function Card({ title, subtitle, imageUrl, onPress }) {
   return (
-    <CardView>
-      <CardView.Image source={imageUrl} />
-      <CardView.Details>
-        <CardView.Title>{title}</CardView.Title>
-        <CardView.SubTitle>{subtitle}</CardView.SubTitle>
-      </CardView.Details>
-    </CardView>
+    <View>
+      <TouchableWithoutFeedback onPress={onPress}>
+        <CardView>
+          <CardView.Image source={imageUrl} />
+          <CardView.Details>
+            <CardView.Title>{title}</CardView.Title>
+            <CardView.SubTitle>{subtitle}</CardView.SubTitle>
+          </CardView.Details>
+        </CardView>
+      </TouchableWithoutFeedback>
+    </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {},
+});
 
 const CardView = styled.View`
   border-radius: 8px;
