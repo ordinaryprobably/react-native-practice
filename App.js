@@ -40,33 +40,11 @@ const dummyText =
   "F-Lab은 개발자들의 지식공유 커뮤니티를 운영하고 있습니다. 이 커뮤니티에는 세계적인 IT기업에서 근무하는 개발자, 유명 서적 저자 등 실력이 뛰어나기로 유명하신 분들이 모여있습니다. 또한 F-Lab 멘토링을 수료하고, 상위 IT 서비스 기업에 재직중인 뛰어난 주니어 개발자들도 만나볼 수 있습니다. F-Lab의 커뮤니티에 합류하시게 되면, 이런 뛰어난 개발자들과 교류하실 수 있으며 공간 제공 등 다양한 혜택도 받아보실 수 있습니다. 이 커뮤니티에서는 멘토링 활동, 혹은 강의나 집필과 같이 지식공유활동에 관심있는 사람들이 인사이트를 공유하고 있습니다. 지식공유활동에 관심이 많으신 개발자분들의 신청을 기다립니다 [최소자격] - 스스로 동기부여하여 꾸준히 학습을 하시는 분 - 이력에 타이틀이 있으신 분 - 개발자 교육, 멘토링, 집필 등 지식 공유활동에 관심이 많으신 분";
 
 export default function App() {
-  const [imageUris, setImageUris] = useState([]);
-
-  const addImageUri = (uri) => {
-    setImageUris([...imageUris, uri]);
-  };
-
-  const removeImageUri = (uri) => {
-    setImageUris(imageUris.filter((imageUri) => imageUri !== uri));
-  };
-
   const requestPermission = async () => {
     const result = await ImagePicker.requestCameraPermissionsAsync();
 
     if (!result.granted) {
-      alert("you need to ");
-    }
-  };
-
-  const selectImage = async () => {
-    try {
-      const result = await ImagePicker.launchImageLibraryAsync();
-
-      if (!result.cancelled) {
-        setImageUri(result.uri);
-      }
-    } catch (error) {
-      console.log("Error reading Image picker", error);
+      alert("You need to allow Expo to access camera.");
     }
   };
 
@@ -93,7 +71,7 @@ export default function App() {
   //   </Screen>
   // return <LoginScreen />;
   // return <RegisterScreen />;
-  // return <ListingEditScreen />;
+  return <ListingEditScreen />;
   // return (
   //   <Screen>
   //     <ListItem
@@ -120,15 +98,15 @@ export default function App() {
   // return (
   //   <ImageInput imageUri={null} onChangeImage={() => console.log("image")} />
   // );
-  return (
-    <Screen>
-      <ImageInputList
-        imageUris={imageUris}
-        onAddImage={addImageUri}
-        onRemoveImage={removeImageUri}
-      />
-    </Screen>
-  );
+  // return (
+  //   <Screen>
+  //     <ImageInputList
+  //       imageUris={imageUris}
+  //       onAddImage={addImageUri}
+  //       onRemoveImage={removeImageUri}
+  //     />
+  //   </Screen>
+  // );
 }
 const styles = StyleSheet.create({
   // container: {

@@ -33,18 +33,6 @@ function ImageInput({ imageUri, onChangeImage }) {
     }
   };
 
-  const selectImage = async () => {
-    try {
-      const result = await ImagePicker.launchImageLibraryAsync();
-
-      if (!result.cancelled) {
-        onChangeImage(result.uri);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   return (
     <TouchableHighlight
       style={styles.touchable}
