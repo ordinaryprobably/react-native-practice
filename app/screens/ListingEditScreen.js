@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components/native";
 import AppForm from "../components/Forms/AppForm";
 import Screen from "../components/Screen";
-import * as Yup from "yup";
 import AppFormField from "../components/Forms/AppFormField";
 import FormImagePicker from "../components/Forms/FormImagePicker";
 import AppFormPicker from "../components/Forms/AppFormPicker";
 import SubmitButton from "../components/Forms/SubmitButton";
+import * as Yup from "yup";
+import useLocation from "../hooks/useLocation";
 
 const validationSchema = Yup.object().shape({
   title: Yup.string().required(),
@@ -21,6 +22,8 @@ const categories = [
 ];
 
 function ListingEditScreen() {
+  const location = useLocation();
+
   return (
     <Screen>
       <LoginView>
@@ -32,7 +35,7 @@ function ListingEditScreen() {
             description: "",
             images: [],
           }}
-          onSubmit={(values) => console.log(values)}
+          onSubmit={(values) => console.log(location)}
           validationSchema={validationSchema}
         >
           <FormImagePicker name="images" />
