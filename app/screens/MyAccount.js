@@ -19,10 +19,11 @@ const menu = [
     title: "My Messages",
     icon: "mail",
     color: colors.secondary,
+    targetScreen: "Messages Screen",
   },
 ];
 
-export default function MyAccount() {
+export default function MyAccount({ navigation }) {
   return (
     <GreyScreen>
       <ProfileView>
@@ -40,6 +41,7 @@ export default function MyAccount() {
             <ListItem
               title={item.title}
               IconComponent={<Icon name={item.icon} bgColor={item.color} />}
+              onPress={() => navigation.navigate(item.targetScreen)}
             />
           )}
           ItemSeparatorComponent={ListItemSeparator}
