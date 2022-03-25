@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components/native";
 import AppForm from "../components/Forms/AppForm";
 import Screen from "../components/Screen";
@@ -8,10 +8,12 @@ import AppFormPicker from "../components/Forms/AppFormPicker";
 import SubmitButton from "../components/Forms/SubmitButton";
 import * as Yup from "yup";
 import useLocation from "../hooks/useLocation";
+import listingsApi from "../api/listings";
+import UploadScreen from "./UploadScreen";
 
 const validationSchema = Yup.object().shape({
   title: Yup.string().required(),
-  price: Yup.number().required(),
+  price: Yup.string().required(),
   images: Yup.array().min(1, "You have to add at least 1 image."),
 });
 
@@ -23,19 +25,39 @@ const categories = [
 
 function ListingEditScreen() {
   const location = useLocation();
+  const [modalShown, setModalShown] = useState(false);
+  const [progress, setProgress] = useState(0);
+
+  // Formik passes <values, formikBag> to its submit handler.
+  // formikBag includes many useful methods.
+  const handleSubmit = async (listing, { resetForm }) => {
+    setProgress(0);
+    setModalShown(true);
+    const response = await listingsApi.addListing(
+      { ...listing, location },
+      (progress) => setProgress(progress)
+    );
+    setModalShown(false);
+
+    if (!response.ok) return alert("Could not post your request.");
+
+    alert("Sucess");
+    resetForm();
+  };
 
   return (
     <Screen>
       <LoginView>
+        <UploadScreen progress={progress} isVisible={modalShown} />
         <AppForm
           initialValues={{
             title: "",
-            price: 0,
+            price: "",
             category: "",
             description: "",
             images: [],
           }}
-          onSubmit={(values) => console.log(location)}
+          onSubmit={handleSubmit}
           validationSchema={validationSchema}
         >
           <FormImagePicker name="images" />

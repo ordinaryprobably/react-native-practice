@@ -9,7 +9,7 @@ export default function ListingDetails({ route }) {
 
   return (
     <View>
-      <ItemImage source={details.imageUrl} />
+      <ItemImage source={{ uri: details.imageUrl }} />
       <DetailContainer>
         <Title>{details.title}</Title>
         <Subtitle>{details.subtitle}</Subtitle>

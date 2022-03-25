@@ -8,7 +8,7 @@ export default function Card({ title, subtitle, imageUrl, onPress }) {
     <View>
       <TouchableWithoutFeedback onPress={onPress}>
         <CardView>
-          <CardView.Image source={imageUrl} />
+          <CardView.Image source={{ uri: imageUrl }} />
           <CardView.Details>
             <CardView.Title>{title}</CardView.Title>
             <CardView.SubTitle>{subtitle}</CardView.SubTitle>

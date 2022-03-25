@@ -1,45 +1,46 @@
 import styled from "styled-components/native";
+import { useEffect } from "react";
 import { SafeScreen } from "../components/Screen";
-import { FlatList } from "react-native";
+import { FlatList, ActivityIndicator } from "react-native";
 
 import colors from "../config/colors";
 import Card from "../components/Card";
-import { useState } from "react";
-
-const initailItems = [
-  {
-    id: 1,
-    title: "Red jacket for sale",
-    price: "$200",
-    image: require("../assets/jacket.jpg"),
-  },
-  {
-    id: 2,
-    title: "Couch sale",
-    price: "$1300",
-    image: require("../assets/couch.jpg"),
-  },
-];
+import listingsApi from "../api/listings";
+import StyleButton from "../components/Button";
+import useApi from "../hooks/useApi";
 
 export default function ListingScreen({ navigation }) {
-  const [items, setItems] = useState(initailItems);
+  const {
+    data: listings,
+    hasError,
+    isLoading,
+    loadData: loadListings,
+  } = useApi(listingsApi.getListings);
+
+  useEffect(() => {
+    loadListings();
+  }, []);
 
   return (
     <GreyScreen>
       <StyleScreen>
+        {hasError && (
+          <StyleButton text="Something went wrong..." onPress={loadListings} />
+        )}
+        <ActivityIndicator animating={isLoading} size="large" />
         <FlatList
-          data={items}
-          keyExtractor={(item) => item.id.toString()}
+          data={listings}
+          keyExtractor={(listing) => listing.id.toString()}
           renderItem={({ item }) => (
             <Card
               title={item.title}
               subtitle={item.price}
-              imageUrl={item.image}
+              imageUrl={item.images[0].url}
               onPress={() =>
                 navigation.navigate("Listing Detail Screen", {
                   title: item.title,
                   subtitle: item.subtitle,
-                  imageUrl: item.image,
+                  imageUrl: item.images[0].url,
                 })
               }
             />
