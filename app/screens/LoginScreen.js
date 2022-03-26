@@ -1,9 +1,16 @@
+import { useContext, useState } from "react";
 import styled from "styled-components/native";
-import Screen from "../components/Screen";
 import * as Yup from "yup";
+import jwtDecode from "jwt-decode";
+
+import Screen from "../components/Screen";
 import AppFormField from "../components/Forms/AppFormField";
 import SubmitButton from "../components/Forms/SubmitButton";
 import AppForm from "../components/Forms/AppForm";
+import ErrorMessage from "../components/Forms/ErrorMessage";
+import authApi from "../api/auth";
+import AuthContext from "../auth/context";
+import authStorage from "../auth/storage";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label("Email"),
@@ -11,15 +18,38 @@ const validationSchema = Yup.object().shape({
 });
 
 export default function LoginScreen() {
+  const [loginFailed, setLoginFailed] = useState(false);
+  const authContext = useContext(AuthContext);
+
+  const handleSubmit = async (formikValues) => {
+    const result = await authApi.login(
+      formikValues.email,
+      formikValues.password
+    );
+
+    if (!result.ok) return setLoginFailed(true);
+
+    setLoginFailed(false);
+
+    const userCredentials = jwtDecode(result.data);
+
+    authContext.setUser(userCredentials);
+    authStorage.storeTokenToStorage(result.data);
+  };
+
   return (
     <Screen>
       <LoginView>
         <LogoImage source={require("../assets/logo-red.png")} />
         <AppForm
           initialValues={{ email: "", password: "" }}
-          onSubmit={(values) => console.log(values)}
+          onSubmit={handleSubmit}
           validationSchema={validationSchema}
         >
+          <ErrorMessage
+            error="Invalid user credentials."
+            visible={loginFailed}
+          />
           <AppFormField
             icon="mail"
             autoCapitalize="none"

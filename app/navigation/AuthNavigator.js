@@ -11,7 +11,7 @@ function AuthNavigator(props) {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name={routes.WelcomeScreen}
+        name={routes.WELCOME_SCREEN}
         component={WelcomeScreen}
         options={{ headerShown: false }}
       />

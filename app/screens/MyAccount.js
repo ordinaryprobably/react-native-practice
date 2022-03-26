@@ -1,13 +1,15 @@
 import styled from "styled-components/native";
-import MenuButtonWithIcon from "../components/MenuButtonWithIcon";
-import { SafeScreen } from "../components/Screen";
-import { FlatList, View } from "react-native";
+import { useContext } from "react";
+import { FlatList } from "react-native";
 
 import colors from "../config/colors";
+import { SafeScreen } from "../components/Screen";
 import { BasicText } from "../styled_components/elements/Text";
 import ListItemSeparator from "../components/ListItemSeparator";
 import ListItem from "../components/ListItem";
 import Icon from "../components/Icon";
+import AuthContext from "../auth/context";
+import authStorage from "../auth/storage";
 
 const menu = [
   {
@@ -24,13 +26,20 @@ const menu = [
 ];
 
 export default function MyAccount({ navigation }) {
+  const { user, setUser } = useContext(AuthContext);
+
+  const handleLogOut = () => {
+    setUser(null);
+    authStorage.removeTokenFromStorage();
+  };
+
   return (
     <GreyScreen>
       <ProfileView>
         <ProfileImage source={require("../assets/mosh.jpg")} />
         <DetailView>
-          <BoldText>Most</BoldText>
-          <SubText>@mail.com</SubText>
+          <BoldText>{user.name}</BoldText>
+          <SubText>{user.email}</SubText>
         </DetailView>
       </ProfileView>
       <FlatListView>
@@ -50,6 +59,7 @@ export default function MyAccount({ navigation }) {
       <ListItem
         title="Log Out"
         IconComponent={<Icon name="log-out" bgColor="orange" />}
+        onPress={handleLogOut}
       />
     </GreyScreen>
   );

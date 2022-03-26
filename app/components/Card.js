@@ -4,6 +4,12 @@ import colors from "../config/colors";
 import { BasicText } from "../styled_components/elements/Text";
 
 export default function Card({ title, subtitle, imageUrl, onPress }) {
+  /**
+   * imageUrl contains initially configured IP address, which changes everytime a reconnection happens.
+   * If images are not showing, try fixing [Backend/config/development.json] and [test1/app/api/client.js]
+   * with current IP address.
+   */
+
   return (
     <View>
       <TouchableWithoutFeedback onPress={onPress}>

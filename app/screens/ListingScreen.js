@@ -25,7 +25,10 @@ export default function ListingScreen({ navigation }) {
     <GreyScreen>
       <StyleScreen>
         {hasError && (
-          <StyleButton text="Something went wrong..." onPress={loadListings} />
+          <StyleButton
+            text="Something went wrong...Turn on node server."
+            onPress={loadListings}
+          />
         )}
         <ActivityIndicator animating={isLoading} size="large" />
         <FlatList
